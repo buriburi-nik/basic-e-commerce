@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Whimsical Shop</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+
+<body>
+  <div class="form-box">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" autofocus />
+    <input type="password" id="password" placeholder="Password" />
+
+    <div class="toggle-pw">
+      <input type="checkbox" id="showPassword" class="showPassword" />
+      <label for="showPassword" class="show">Show Password</label>
+    </div>
+
+    <button onclick="login()">Login</button>
+    <div class="switch-mode">
+      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+      <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('showPassword').addEventListener('change', e => {
+      document.getElementById('password').type = e.target.checked ? 'text' : 'password';
+    });
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!username || !password) {
+        alert('Please fill all fields!');
+        return;
+      }
+
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('username', username);
+      alert('Logged in successfully!');
+      window.location.href = 'main.html';
+    }
+
+    function forgotPassword() {
+      localStorage.clear();
+      alert('Local data cleared. Please sign up again.');
+    }
+  </script>
+</body>
+
+</html>

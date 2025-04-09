@@ -1,0 +1,116 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fdf8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.4s ease;
+}
+
+.form-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+  animation: popIn 0.6s ease;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.form-box h2 {
+  margin-bottom: 1rem;
+  color: #845ec2;
+}
+
+.form-box input {
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #ddd;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.form-box input:focus {
+  border-color: #d996e6;
+}
+
+
+.form-box button {
+  background: #845ec2;
+  color: white;
+  font-weight: bold;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-box button:hover {
+  background: #6a4bb3;
+}
+
+.switch-mode {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.switch-mode a {
+  color: #845ec2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.toggle-pw {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.toggle-pw input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.toggle-pw label {
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-box input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  border: 2px solid #d996e6;
+  outline: none;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.form-box input:focus {
+  border-color: #845ec2;
+}

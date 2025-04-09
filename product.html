@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Details</title>
+  <style>
+    :root {
+      --bg-light: #fdf8ff;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #1a0037;
+      --text-dark: #f0f2f5;
+      --primary: #d996e6;
+      --accent: #845ec2;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      padding: 2rem 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .product-details-container {
+      max-width: 900px;
+      margin: auto;
+      background: var(--card-light);
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s ease;
+    }
+
+    #back-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      transition: background 0.3s ease;
+    }
+
+    #back-btn:hover {
+      background: var(--accent);
+    }
+
+    #product-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    #product-details img {
+      max-width: 300px;
+      max-height: 350px;
+      object-fit: contain;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    #product-details .details {
+      flex: 1;
+    }
+
+    .details h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .details p {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+    }
+
+    /* Dark mode */
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .product-details-container {
+      background: var(--card-dark);
+    }
+
+    body.dark-mode #back-btn {
+      background: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="product-details-container">
+    <button id="back-btn">← Back</button>
+    <div id="product-details">Loading...</div>
+  </div>
+
+  <script>
+    const productId = localStorage.getItem('selectedProductId');
+    const detailsContainer = document.getElementById('product-details');
+
+    if (!productId) {
+      detailsContainer.textContent = 'No product selected.';
+    } else {
+      fetch(`https://fakestoreapi.com/products/${productId}`)
+        .then(res => res.json())
+        .then(product => renderProductDetails(product))
+        .catch(error => {
+          console.error('Error:', error);
+          detailsContainer.textContent = 'Error loading product details.';
+        });
+    }
+
+    function renderProductDetails(product) {
+      detailsContainer.innerHTML = `
+        <img src="${product.image}" alt="${product.title}" />
+        <div class="details">
+          <h2>${product.title}</h2>
+          <p><strong>Price:</strong> $${product.price}</p>
+          <p><strong>Category:</strong> ${product.category}</p>
+          <p>${product.description}</p>
+        </div>
+      `;
+    }
+
+    // Back button
+    document.getElementById('back-btn').addEventListener('click', () => {
+      window.location.href = 'main.html';
+    });
+
+    // Dark mode from main site
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
+</body>
+
+</html>

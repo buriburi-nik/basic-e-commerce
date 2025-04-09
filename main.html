@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Whimsical E-Commerce</title>
+  <style>
+    :root {
+      --light-bg: #fdf8ff;
+      --dark-bg: #1f1b24;
+      --light-text: #1a0037;
+      --dark-text: #f4edff;
+      --primary: #d996e6;
+      --accent: #845ec2;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light-bg);
+      color: var(--light-text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body.dark-mode {
+      background: var(--dark-bg);
+      color: var(--dark-text);
+    }
+
+    header {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      margin: 1rem auto;
+      border-radius: 2rem;
+      max-width: 1200px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s ease;
+    }
+
+    body.dark-mode header {
+      background: #2e2e2e;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: var(--light-text);
+    }
+
+    body.dark-mode header h1 {
+      color: var(--dark-text);
+    }
+
+    header h1::before {
+      content: '';
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-right: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 4px;
+      transform: rotate(45deg);
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.9rem;
+      background: #f1eaff;
+      color: #1a0037;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .controls button.signup {
+      background: #1a0037;
+      color: white;
+      font-weight: bold;
+    }
+
+    .controls button:hover {
+      background: #e6d4ff;
+    }
+
+    body.dark-mode .controls input,
+    body.dark-mode .controls select,
+    body.dark-mode .controls button {
+      background: #3b3b3b;
+      color: white;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .controls button:hover {
+      background: #4b4b4b;
+    }
+
+    body.dark-mode #search-input::placeholder {
+      color: #ccc;
+    }
+
+    body.dark-mode select option {
+      background: #2d2d2d;
+      color: white;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .toggle-switch {
+      width: 60px;
+      height: 30px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, #f9e0ae, #eac696);
+      box-shadow: 5px 5px 15px #d6b483, -5px -5px 15px #ffeed4;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .toggle-switch .sun,
+    .toggle-switch .moon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .toggle-switch .sun {
+      left: 8px;
+    }
+
+    .toggle-switch .moon {
+      right: 8px;
+    }
+
+    #dark-mode-toggle {
+      display: none;
+    }
+
+    #dark-mode-toggle:checked+.toggle-switch {
+      background: linear-gradient(145deg, #6e4c9c, #3a2d5e);
+      box-shadow: inset 5px 5px 15px #2d2247, inset -5px -5px 15px #8364c6;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .image-container {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .image-container img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .product-card h3 {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .product-card p {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .like-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #fde9ff;
+      border: none;
+      border-radius: 50%;
+      padding: 0.5rem;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #c94dd2;
+      transition: background 0.3s;
+    }
+
+    .like-btn.liked {
+      background: #ec38bc;
+      color: white;
+    }
+
+    body.dark-mode .product-card {
+      background: #2d2d2d;
+      color: white;
+    }
+
+    body.dark-mode .product-card p {
+      color: #eee;
+    }
+
+    body.dark-mode .like-btn {
+      background: #444;
+      color: #ff87ff;
+    }
+
+    body.dark-mode .like-btn.liked {
+      background: #ec38bc;
+      color: white;
+    }
+
+    #loader {
+      text-align: center;
+      font-weight: bold;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .controls {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      alert('Please log in first!');
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <header>
+    <h1>Whimsical E-Commerce</h1>
+    <div class="controls">
+      <div class="toggle-container">
+        <input type="checkbox" id="dark-mode-toggle" />
+        <label for="dark-mode-toggle" class="toggle-switch">
+          <span class="sun">🌞</span>
+          <span class="moon">🌚</span>
+        </label>
+      </div>
+      <button onclick="window.location.href='liked.html'">Liked Products</button>
+      <button id="logout-btn">Logout</button>
+      <input type="text" id="search-input" placeholder="Search products..." />
+      <select id="filter-category">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div id="loader" style="display: none;">Loading products...</div>
+    <div id="products-container" class="products-grid"></div>
+  </main>
+
+  <script>
+    const apiUrl = 'https://fakestoreapi.com/products';
+    let products = [];
+    let likedProducts = JSON.parse(localStorage.getItem('likedProducts')) || [];
+
+    async function fetchProducts() {
+      document.getElementById('loader').style.display = 'block';
+      try {
+        const res = await fetch(apiUrl);
+        products = await res.json();
+        populateCategories(products);
+        displayProducts(products);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        document.getElementById('loader').style.display = 'none';
+      }
+    }
+
+    function populateCategories(products) {
+      const select = document.getElementById('filter-category');
+      const categories = [...new Set(products.map(p => p.category))];
+      categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        select.appendChild(option);
+      });
+    }
+
+    function displayProducts(filtered) {
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p>No products found.</p>`;
+        return;
+      }
+
+      filtered.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <button class="like-btn ${likedProducts.includes(product.id) ? 'liked' : ''}" data-id="${product.id}">&hearts;</button>
+          <div class="image-container">
+            <img src="${product.image}" alt="${product.title}" />
+          </div>
+          <h3>${product.title}</h3>
+          <p>$${product.price}</p>
+        `;
+        card.addEventListener('click', e => {
+          if (e.target.classList.contains('like-btn')) return;
+          localStorage.setItem('selectedProductId', product.id);
+          window.location.href = 'product.html';
+        });
+        card.querySelector('.like-btn').addEventListener('click', e => {
+          e.stopPropagation();
+          toggleLike(product.id, e.target);
+        });
+        container.appendChild(card);
+      });
+    }
+
+    function toggleLike(id, btn) {
+      if (likedProducts.includes(id)) {
+        likedProducts = likedProducts.filter(pid => pid !== id);
+        btn.classList.remove('liked');
+      } else {
+        likedProducts.push(id);
+        btn.classList.add('liked');
+      }
+      localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
+    }
+
+    document.getElementById('search-input').addEventListener('input', e => {
+      const query = e.target.value.toLowerCase();
+      const filtered = products.filter(p => p.title.toLowerCase().includes(query));
+      displayProducts(filtered);
+    });
+
+    document.getElementById('filter-category').addEventListener('change', e => {
+      const cat = e.target.value;
+      const filtered = cat ? products.filter(p => p.category === cat) : products;
+      displayProducts(filtered);
+    });
+
+    const toggleCheckbox = document.getElementById('dark-mode-toggle');
+    toggleCheckbox.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggleCheckbox.checked = true;
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('username');
+      alert('Logged out!');
+      window.location.href = 'login.html';
+    });
+
+    fetchProducts();
+  </script>
+</body>
+
+</html>
