@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Whimsical Shop</title>
-  <link rel="stylesheet" href="auth.css" />
+  <title>Login | Welcome Back!</title>
+  <link rel="stylesheet" href="/info/auth.css" />
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 
     <button onclick="login()">Login</button>
     <div class="switch-mode">
-      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+      <p>Don't have an account? <a href="/info/signup.html">Sign Up</a></p>
       <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
     </div>
   </div>
@@ -43,7 +43,7 @@
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('username', username);
       alert('Logged in successfully!');
-      window.location.href = 'main.html';
+      window.location.href = '/main/main.html';
     }
 
     function forgotPassword() {
