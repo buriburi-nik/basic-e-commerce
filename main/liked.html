@@ -11,12 +11,24 @@
       font-family: 'Segoe UI', sans-serif;
       background: #f0f2f5;
       color: #333;
+       /* background: linear-gradient(135deg, #f9f9f9, #73a0cd); */
+    }
+
+     :root {
+      --bg-light: #fdf8ff;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #1a0037;
+      --text-dark: #f0f2f5;
+      --primary: #d996e6;
+      --accent: #845ec2;
     }
 
     .hero {
-      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-      border-bottom-left-radius: 50% 20vh;
-      border-bottom-right-radius: 50% 20vh;
+      background: linear-gradient(135deg, #8560dc, #fbc2eb);
+      border-bottom-left-radius: 60% 20vh;
+      border-bottom-right-radius: 80% 20vh;
       transition: border-radius 0.5s ease-in-out;
       position: relative;
       padding-bottom: 2rem;
@@ -108,6 +120,20 @@
     .like-btn.liked {
       color: red;
     }
+
+     /* Dark mode */
+    body.dark-mode {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body.dark-mode .product-details-container {
+      background: var(--card-dark);
+    }
+
+    body.dark-mode #back-btn {
+      background: #333;
+    }
   </style>
 </head>
 
@@ -188,6 +214,11 @@
     window.addEventListener("scroll", () => {
       hero.classList.toggle("scrolled", window.scrollY > 50);
     });
+
+      // Dark mode from main site
+        if (localStorage.getItem('darkMode') === 'true') {
+          document.body.classList.add('dark-mode');
+        }
   </script>
 </body>
 

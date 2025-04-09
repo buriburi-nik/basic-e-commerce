@@ -9,46 +9,66 @@
 </head>
 
 <body>
+  ?
   <div class="form-box">
     <h2>Login</h2>
     <input type="text" id="username" placeholder="Username" autofocus />
     <input type="password" id="password" placeholder="Password" />
 
     <div class="toggle-pw">
-      <input type="checkbox" id="showPassword" class="showPassword" />
-      <label for="showPassword" class="show">Show Password</label>
+      <input type="checkbox" id="showPassword" class="bb"/>
+      <label for="showPassword">Show Password</label>
     </div>
 
     <button onclick="login()">Login</button>
+
     <div class="switch-mode">
       <p>Don't have an account? <a href="/info/signup.html">Sign Up</a></p>
       <p><a href="#" onclick="forgotPassword()">Forgot Password?</a></p>
     </div>
   </div>
 
+  <!-- Toast container -->
   <script>
     document.getElementById('showPassword').addEventListener('change', e => {
       document.getElementById('password').type = e.target.checked ? 'text' : 'password';
     });
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
 
     function login() {
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
 
       if (!username || !password) {
-        alert('Please fill all fields!');
+        showToast('⚠️ Please fill all fields!');
         return;
       }
 
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('username', username);
-      alert('Logged in successfully!');
-      window.location.href = '/main/main.html';
+      // In real apps, validate credentials via backend/API
+      const savedUser = localStorage.getItem('username');
+      const savedPassword = localStorage.getItem('password');
+
+      if (username === savedUser && password === savedPassword) {
+        localStorage.setItem('isLoggedIn', 'true');
+        showToast('✅ Logged in successfully!');
+        setTimeout(() => {
+          window.location.href = '/main/main.html';
+        }, 1500);
+      } else {
+        showToast('❌ Invalid credentials!');
+      }
     }
 
     function forgotPassword() {
       localStorage.clear();
-      alert('Local data cleared. Please sign up again.');
+      showToast('🔒 Data cleared. Please sign up again.');
     }
   </script>
 </body>

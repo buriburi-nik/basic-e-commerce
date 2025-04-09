@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up | Hello</title>
   <link rel="stylesheet" href="auth.css" />
 </head>
+
 <body>
+
+
   <div class="form-box">
     <h2>Sign Up</h2>
     <input type="text" id="username" placeholder="Username" autofocus />
@@ -14,7 +18,7 @@
     <input type="password" id="password" placeholder="Password" />
 
     <div class="toggle-pw">
-      <input type="checkbox" id="showPassword" />
+      <input type="checkbox" id="showPassword"  class="bb" />
       <label for="showPassword">Show Password</label>
     </div>
 
@@ -25,9 +29,20 @@
   </div>
 
   <script>
-    document.getElementById('showPassword').addEventListener('change', e => {
-      document.getElementById('password').type = e.target.checked ? 'text' : 'password';
+    const showPasswordCheckbox = document.getElementById('showPassword');
+    const passwordInput = document.getElementById('password');
+
+    showPasswordCheckbox.addEventListener('change', () => {
+      passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
     });
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
 
     function signup() {
       const username = document.getElementById('username').value.trim();
@@ -35,7 +50,7 @@
       const password = document.getElementById('password').value.trim();
 
       if (!username || !email || !password) {
-        alert('Please fill all fields!');
+        showToast('⚠️ Please fill all fields!');
         return;
       }
 
@@ -43,9 +58,12 @@
       localStorage.setItem('email', email);
       localStorage.setItem('password', password);
 
-      alert('Signed up successfully! Now login.');
-      window.location.href = '../index.html';
+      showToast('✅ Signed up successfully!');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 1500);
     }
   </script>
 </body>
+
 </html>
