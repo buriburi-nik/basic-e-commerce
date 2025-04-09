@@ -26,10 +26,6 @@ A modern and responsive e-commerce website built using **HTML**, **CSS**, and **
 
 ---
 
-## 📁 Project Structure
-
-
----
 
 ## 🚀 Getting Started
 
@@ -38,7 +34,20 @@ To run the project locally:
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/buriburi-nik/basic-e-commerce.git
-🙋‍♂️ Author
-Nikhil
-🔗 GitHub - @buriburi-nik
+---
+
+## 🔧 Tech Stack
+
+- **HTML5**  
+- **CSS3**  
+- **JavaScript (ES6)**  
+- **[Fake Store API](https://fakestoreapi.com/)**  
+- **[Vercel](https://vercel.com/) (for deployment)**
+---
+
+## 🙋‍♂️ Author
+
+**Nikhil**  
+🔗 [GitHub - @buriburi-nik](https://github.com/buriburi-nik)
+
 
